@@ -13,7 +13,7 @@ fluidPage(
     sliderInput('binwidth', 'Binwidth', min=1, max=floor(dataset$tripduration/5),
                 value=min(10, nrow(dataset)), step= 10, round=0),
 
-    selectInput('from_station_id', 'From Station ID', c("ALL",sort(unique(dataset$from_station_id)))),
+    selectInput('from_station_name', 'From Station', c("ALL",unique(dataset$from_station_name))),
 #    selectInput('y', 'Y', names(dataset), names(dataset)[[2]]),
 #    selectInput('color', 'Color', c('None', names(dataset))),
 
