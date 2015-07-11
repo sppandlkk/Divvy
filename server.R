@@ -6,8 +6,8 @@ library(ggplot2)
 function(input, output) {
 		
   dataset <- reactive({
-  	if(input$from_station_id != "ALL"){
-    		return(trips_subs[trips_subs$from_station_id %in% input$from_station_id,])
+  	if(input$from_station_name != "ALL"){
+    		return(trips_subs[trips_subs$from_station_name %in% input$from_station_name,])
     	}else{
     		return(trips_subs)
     	}
