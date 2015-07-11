@@ -19,7 +19,7 @@ Each trip is anonymized and includes:
 ## Project Starting Date         
 July 11 2015
 ## Developer/Contributor
-Arnold Huang (sppandlkk)
+sppandlkk
 
 
 
