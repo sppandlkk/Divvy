@@ -5,7 +5,7 @@ dataset <- read.csv("./data/head.csv")
 dataset$from_station_name <- as.character(dataset$from_station_name)
 fluidPage(
 
-  titlePanel("Divvy Explorer"),
+  titlePanel("Divvy Usage Duration Distribution"),
 
   sidebarPanel(
 
