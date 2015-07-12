@@ -1,8 +1,8 @@
 library(shiny)
 library(ggplot2)
 # read in the data
-source("./load_data.r")
-dataset <- trips_subs
+#source("./load_data.r")
+dataset <- read.csv("./data/head.csv")
 
 fluidPage(
 
@@ -10,8 +10,8 @@ fluidPage(
 
   sidebarPanel(
 
-    sliderInput('binwidth', 'Binwidth', min=1, max=floor(dataset$tripduration/5),
-                value=min(10, nrow(dataset)), step= 10, round=0),
+    sliderInput('binwidth', 'Binwidth', min=10, max=500,
+                value=50, step= 10),
 
     selectInput('from_station_name', 'From Station', c("ALL",unique(dataset$from_station_name))),
 #    selectInput('y', 'Y', names(dataset), names(dataset)[[2]]),
