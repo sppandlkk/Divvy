@@ -3,27 +3,43 @@ library(ggplot2)
 
 dataset <- read.csv("./data/head.csv")
 dataset$from_station_name <- as.character(dataset$from_station_name)
+dataset$to_station_name <- as.character(dataset$to_station_name)
+
+
 fluidPage(
 
-  titlePanel("Divvy Usage Duration Distribution"),
+  titlePanel("2013 Divvy Data Analyses"),
 
   sidebarPanel(
 
-    sliderInput('binwidth', 'Binwidth', min=10, max=200,
-                value=50, step= 10),
+    selectInput('from_station_name', 'Start Station', c("ALL",unique(dataset$from_station_name))),
+    selectInput('to_station_name', 'End Station', c("ALL",unique(dataset$to_station_name))),
 
-    selectInput('from_station_name', 'From Station', c("ALL",unique(dataset$from_station_name))),
-#    selectInput('y', 'Y', names(dataset), names(dataset)[[2]]),
-#    selectInput('color', 'Color', c('None', names(dataset))),
+    sliderInput("binwidth", 'Binwidth (for Histogram)', min=10, max=200, value=50, step= 10),
 
-    checkboxInput('by_age', 'By Age'),
-    checkboxInput('by_gender', 'By Gender')
+    checkboxInput('by_age', 'By Age (for Histogram)'),
+    checkboxInput('by_gender', 'By Gender (for Histogram)'),
 
 #    selectInput('facet_row', 'Facet Row', c(None='.', names(dataset))),
 #    selectInput('facet_col', 'Facet Column', c(None='.', names(dataset)))
+
+    sliderInput('alpha', 'alpha (for graph 2)', min=1, max=10, value=3, step= 0.5)
   ),
 
-  mainPanel(
-    plotOutput('plot')
+    mainPanel(
+    	tabsetPanel(
+		tabPanel("Histogram",	
+    			h3("Divvy Usage Duration Distribution"),
+    			plotOutput("plot")
+    		)
+		,
+		tabPanel("Stations Pairwise Analyses",
+			br(),
+			br(),
+			textOutput("text_start"),
+			textOutput("text_to"),
+			plotOutput("plot_start")
+		)
+ 	)
   )
 )
