@@ -9,7 +9,7 @@ fluidPage(
 
   sidebarPanel(
 
-    sliderInput('binwidth', 'Binwidth', min=10, max=500,
+    sliderInput('binwidth', 'Binwidth', min=10, max=200,
                 value=50, step= 10),
 
     selectInput('from_station_name', 'From Station', c("ALL",unique(dataset$from_station_name))),
