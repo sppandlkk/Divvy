@@ -1,8 +1,10 @@
 library(shiny)
 library(ggplot2)
+library(ggmap)
+
 # read in the data
 trips <- read.csv("./data/Divvy_Trips_2013_t.csv")
-
+stations <- read.csv("./data/Divvy_Stations_2013.csv")
 
 #### first restrict to member
 trips_subs <- trips[trips$usertype=="Subscriber",]
@@ -36,9 +38,26 @@ function(input, output) {
      		dd <- dd[dd$to_station_name %in% input$to_station_name,]
      	}
 	return(dd)
-
-
   })
+
+  dataset_by_start <- reactive({
+	dd <- trips_subs
+  	if(input$from_station_name != "ALL"){
+    		dd <- dd[dd$from_station_name %in% input$from_station_name,]
+    	}
+	tt <- table(dd$to_station_id)
+	merge(data.frame(id=names(tt),cnt=c(tt)),stations[,c("longitude","latitude","id")],by="id")
+  })
+
+  dataset_by_to <- reactive({
+	dd <- trips_subs
+   	if(input$to_station_name != "ALL"){
+     		dd <- dd[dd$to_station_name %in% input$to_station_name,]
+     	}
+	tt <- table(dd$from_station_id)
+	merge(data.frame(id=names(tt),cnt=c(tt)),stations[,c("longitude","latitude","id")],by="id")
+  })
+
 
 #### first panel
 #### for creating the plot
@@ -70,11 +89,27 @@ function(input, output) {
 	 paste("You have selected end station :", input$to_station_name)
   })
 
-#### plot
+#### plot 
   output$plot_start <- renderPlot({
 	p_start <- qplot(age,tripduration, data=dataset(),color=gender,alpha=I(1/input$alpha))
 	print(p_start)
   })
+
+#### thrid panel
+#### text first
+  output$given_start <- renderText({
+	 paste("Given the start station :", input$from_station_name)
+  })
+#### ggmap
+	output$ggmap_by_start <- renderPlot({
+		gg <- get_map(location = c(lon=-87.65,lat=41.88), zoom = 12)
+		gg <- ggmap(gg,extent="panel")
+		gg <- gg + geom_point(aes(x = longitude, y = latitude, size = sqrt(cnt)), data = dataset_by_start())
+		### adding the starting
+		gg <- gg + geom_point(aes(x = longitude, y = latitude), size = input$size_to, color= "red", data = stations[stations$name==input$from_station_name,])
+		print(gg)
+	},height=600)
+
 
 
 

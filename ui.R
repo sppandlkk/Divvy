@@ -23,7 +23,10 @@ fluidPage(
 #    selectInput('facet_row', 'Facet Row', c(None='.', names(dataset))),
 #    selectInput('facet_col', 'Facet Column', c(None='.', names(dataset)))
 
-    sliderInput('alpha', 'alpha (for graph 2)', min=1, max=10, value=3, step= 0.5)
+    sliderInput('alpha', 'alpha (for graph 2)', min=1, max=10, value=3, step= 0.5),
+
+
+    sliderInput('size_to', 'size (for graph 3)', min=1, max=20, value=10, step= 2)
   ),
 
     mainPanel(
@@ -39,6 +42,12 @@ fluidPage(
 			textOutput("text_start"),
 			textOutput("text_to"),
 			plotOutput("plot_start")
+		)
+		,
+		tabPanel("End Stations Analyses",
+			textOutput("given_start"),
+			p("This Map Shows The Distribution of the End Station"),
+			plotOutput("ggmap_by_start")
 		)
  	)
   )
