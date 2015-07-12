@@ -1,7 +1,7 @@
-temp <- tempfile()
-download.file("http://s3.amazonaws.com/divvy-data/datachallenge/datachallenge.zip",temp)
-trips <- read.csv(unz(temp, "Data Challenge 2013_2014/Divvy_Stations_Trips_2013/Divvy_Trips_2013.csv"))
-unlink(temp)
+#temp <- tempfile()
+#download.file("http://s3.amazonaws.com/divvy-data/datachallenge/datachallenge.zip",temp)
+#trips <- read.csv(unz(temp, "Data Challenge 2013_2014/Divvy_Stations_Trips_2013/Divvy_Trips_2013.csv"))
+#unlink(temp)
 
 
 #stations <- read.csv("data/Divvy_Stations_2013.csv")
