@@ -1,9 +1,8 @@
 library(shiny)
 library(ggplot2)
-# read in the data
-#source("./load_data.r")
-dataset <- read.csv("./data/head.csv")
 
+dataset <- read.csv("./data/head.csv")
+dataset$from_station_name <- as.character(dataset$from_station_name)
 fluidPage(
 
   titlePanel("Divvy Explorer"),
