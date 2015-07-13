@@ -102,6 +102,7 @@ fluidPage(
 			h3("Heatmap for Month and Time"),
 			textOutput("text_start1"),
 			textOutput("text_to1"),
+			p("Most trips are contributed by the commuters in the summer"),
 			plotOutput("heatmap")
 		)
  	)
