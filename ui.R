@@ -26,13 +26,14 @@ fluidPage(
     sliderInput('alpha', 'alpha (for graph 2)', min=1, max=10, value=3, step= 0.5),
 
 
-    sliderInput('size_to', 'size (for graph 3)', min=1, max=20, value=10, step= 2)
+    sliderInput('size_to', 'size (for graph 3)', min=1, max=20, value=5 , step= 2)
   ),
 
     mainPanel(
     	tabsetPanel(
 		tabPanel("Histogram",	
     			h3("Divvy Usage Duration Distribution"),
+			p("As expected, most of the duration is less than 30 minutes (free of charge)"),
     			plotOutput("hist_for_duration"),
 			br(),
 			br(),
@@ -45,6 +46,8 @@ fluidPage(
 			br(),
 			br(),
     			h3("Divvy Usage Month Distribution"),
+			p("Octuber has the most frequent Divvy usuage, followed by September and November"),
+			p("Surprisingly, July has very few data (because we only look for subscribes"),
     			plotOutput("hist_for_month"),
 			br(),
 			br(),
@@ -57,6 +60,7 @@ fluidPage(
 			br(),
 			br(),
     			h3("Divvy Usage Time Distribution"),
+			p("The most popular timeframes are the commute time: 8am and 5pm (and one hour before and after"),
     			plotOutput("hist_for_from_hour")
     		)
 		,
@@ -72,7 +76,7 @@ fluidPage(
 			h3("Distribution of the start station"),
 			textOutput("given_end"),
 			p("This map shows the distribution of the start station"),
-			p("The size of dots represent the total counts for each end station"),
+			p("The size of dots represents the total counts for each end station"),
 			plotOutput("ggmap_by_start"),
 
 			br(),
@@ -89,7 +93,7 @@ fluidPage(
 			h3("Distribution of the end station"),
 			textOutput("given_start"),
 			p("This map shows the distribution of the end station"),
-			p("The size of dots represent the total counts for each end station"),
+			p("The size of dots represents the total counts for each end station"),
 			plotOutput("ggmap_by_end")
 			
 		)
