@@ -11,7 +11,7 @@ stations <- read.csv("./data/Divvy_Stations_2013.csv")
 trips_subs <- trips[trips$usertype=="Subscriber",]
 trips_subs <- trips[!is.na(trips$birthday),]
 #### cut off extreme point
-trips_subs <- trips_subs[trips_subs$tripduration <= 1440,]
+trips_subs <- trips_subs[trips_subs$tripduration <= 2500,]
 
 ####
 trips_subs$from_station_name <- as.character(trips_subs$from_station_name)
@@ -31,9 +31,9 @@ trips_subs <- trips_subs[trips_subs$age <= 90,]
 
 #### create month
 #trips_subs$start_month <- format(as.Date(substr(trips_subs$starttime,1,7),"%m/%d/%y"),"%m")
-trips_subs$from_month <- as.numeric(sub("/","",substr(trips_subs$starttime,1,2)))
-trips_subs$from_hour  <- as.numeric(sub(":","",substr(trips_subs$starttime,10,11)))
-trips_subs$to_hour    <- as.numeric(sub(":","",substr(trips_subs$stoptime,10,11)))
+trips_subs$from_month <- as.numeric(substr(trips_subs$starttime,6,7))
+trips_subs$from_hour  <- as.numeric(substr(trips_subs$starttime,12,13))
+trips_subs$to_hour    <- as.numeric(substr(trips_subs$stoptime,12,13))
 
 function(input, output) {
 		
@@ -194,7 +194,7 @@ function(input, output) {
 		#print(heatmap.2(table(data_heat[,c("from_month","from_hour")]),Rowv=FALSE,Cowv=FALSE))
 		heatmap.2(table(data_heat[,c("from_month","from_hour")]),Rowv=FALSE,Colv=FALSE,dendrogram="none",trace="none",scale="none")
 
-	},height=600)
+	},height=450)
 
 
 }
