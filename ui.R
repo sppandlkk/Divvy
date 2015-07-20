@@ -16,9 +16,22 @@ fluidPage(
     selectInput('to_station_name', 'End Station', c("ALL",unique(dataset$to_station_name))),
 
     sliderInput("binwidth_for_duration", 'Binwidth (for Duration Histogram)', min=10, max=200, value=50, step= 10),
-
+    sliderInput("limit_for_duration", 'Limit (for Duration Histogram)', min=3000, max=20000, value=5000, step= 1000),
+    
     checkboxInput('by_age', 'By Age (for Histogram)'),
     checkboxInput('by_gender', 'By Gender (for Histogram)'),
+
+    
+   selectInput('trip_start_name', 'Trip Start Station', c(unique(dataset$from_station_name))),
+	checkboxGroupInput("landmark_selected",label = h3("Select Landmark (at least 2)"), choices = 
+	list("Water Tower/John Hancock" = 1,
+	"Navy Pier" = 2, 
+	"Millennium Park" = 3,
+	"Museum Campus" = 4,
+	"Sears Tower" = 5,
+	"Adler Planetarium" = 6),        selected = c(1,3)),
+
+
 
 #    selectInput('facet_row', 'Facet Row', c(None='.', names(dataset))),
 #    selectInput('facet_col', 'Facet Column', c(None='.', names(dataset)))
@@ -32,9 +45,14 @@ fluidPage(
     mainPanel(
     	tabsetPanel(
 		tabPanel("Histogram",	
-    			h3("Divvy Usage Duration Distribution"),
-			p("As expected, most of the duration is less than 30 minutes (free of charge)"),
-    			plotOutput("hist_for_duration"),
+    			h3("Divvy Usage Duration Distribution"),	
+    			p("Tourists traveled a lot from 10 am to 8 pm. They traveled more in the weekend than in the weekdays."),				
+
+    			p("Most of the commuters used Divvy duration the weekday and rush hours."),				
+    			plotOutput("hist_for_weekdays"),
+			p("As expected, most of the duration is less than 30 minutes or 1800 seconds (free of charge)"),
+
+    		plotOutput("hist_for_duration"),
 			br(),
 			br(),
 			br(),
@@ -68,6 +86,9 @@ fluidPage(
 			br(),
 			br(),
 			textOutput("text_start"),
+			tableOutput("landmark_table"),
+			h3("Cross-walk Table"),
+			tableOutput("landmark_crosswalk"),
 			textOutput("text_to"),
 			plotOutput("plot_start")
 		)
